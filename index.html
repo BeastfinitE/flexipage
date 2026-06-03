@@ -230,7 +230,13 @@
       line-height: 1.2;
       margin-bottom: 26px;
     }
-    .how-title span { color: var(--gold); }
+    .how-title .flexi {
+      background: linear-gradient(180deg, #2EC9FF 0%, #8FE4FF 70%, #C8F2FF 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .how-title .benefits { color: #fff; }
 
     .steps { display: flex; flex-direction: column; gap: 0; }
 
@@ -387,7 +393,7 @@
 
       <!-- ── how it works panel ─────────────── -->
       <div class="panel-how">
-        <h2 class="how-title" data-in>how <span>FlexiBenefits</span> works</h2>
+        <h2 class="how-title" data-in>how <span class="flexi">flexi</span><span class="benefits">benefits</span> works</h2>
 
         <div class="steps">
 
