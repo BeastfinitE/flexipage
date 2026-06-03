@@ -6,41 +6,39 @@
   <title>FlexiBenefits — SalarySe</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wdth,wght@87.5,300..900;100,300..900&display=swap" rel="stylesheet" />
   <style>
-    /* ── Tokens ─────────────────────────────────────────── */
+    /* ── Tokens (from salaryse.com design system) ───────── */
     :root {
-      --green:   #00592B;
-      --green-dark: #003D1E;
-      --blue:    #0023D1;
-      --pink:    #FF0080;
-      --white:   #FFFFFF;
-      --black:   #0A0A0A;
-      --text:    #111827;
-      --shadow:  6px 6px 0 var(--black);
-      --shadow-lg: 10px 10px 0 var(--black);
-      --border:  3px solid var(--black);
+      --bg-primary:    #070708;
+      --bg-secondary:  #161617;
+      --accent:        #194BCD;
+      --accent-hover:  #3C6CE7;
+      --lime:          #EEFF41;
+      --white:         #FFFFFF;
+      --text-primary:  #FFFFFF;
+      --text-secondary: rgba(255,255,255,0.65);
+      --text-tertiary: rgba(255,255,255,0.45);
+      --border-1:      rgba(255,255,255,0.1);
+      --border-2:      rgba(255,255,255,0.18);
+      --radius-sm: 0.25rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      --radius-round: 100rem;
     }
 
     /* ── Reset ──────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--green);
-      font-family: 'Oswald', sans-serif;
-      color: var(--white);
+      background: var(--bg-primary);
+      font-family: 'Noto Sans', Arial, sans-serif;
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.6;
+      letter-spacing: 0;
       overflow-x: hidden;
-    }
-
-    /* ── Noise texture overlay ──────────────────────────── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
-      pointer-events: none;
-      z-index: 0;
     }
 
     /* ── Utility ────────────────────────────────────────── */
@@ -52,120 +50,122 @@
       z-index: 1;
     }
 
+    /* ── Glow orbs ──────────────────────────────────────── */
+    .glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
     /* ── Nav ────────────────────────────────────────────── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: var(--green-dark);
-      border-bottom: var(--border);
+      background: rgba(7,7,8,0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-1);
     }
     nav .container {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
+      height: 68px;
     }
     .nav-logo {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
       color: var(--white);
       text-decoration: none;
     }
-    .nav-logo span { color: var(--pink); }
+    .nav-logo span { color: var(--accent-hover); }
     .nav-cta {
       display: inline-block;
       background: var(--white);
-      color: var(--black);
-      font-family: 'Oswald', sans-serif;
+      color: #070708;
       font-weight: 600;
       font-size: 14px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 10px 24px;
-      border: var(--border);
-      box-shadow: 4px 4px 0 var(--black);
+      padding: 10px 22px;
+      border-radius: var(--radius-lg);
       text-decoration: none;
-      transition: transform 0.12s, box-shadow 0.12s;
+      transition: background 0.2s, transform 0.2s;
     }
-    .nav-cta:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 var(--black);
-    }
-    .nav-cta:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--black); }
+    .nav-cta:hover { background: rgba(255,255,255,0.85); transform: translateY(-1px); }
 
     /* ── Hero ───────────────────────────────────────────── */
     .hero {
-      padding-top: 140px;
-      padding-bottom: 100px;
+      padding-top: 168px;
+      padding-bottom: 120px;
       position: relative;
       overflow: hidden;
+      text-align: center;
     }
-
-    /* decorative blocks */
-    .hero-block-1 {
-      position: absolute;
-      width: 320px; height: 320px;
-      background: var(--blue);
-      top: 80px; right: -60px;
-      border: var(--border);
-      transform: rotate(12deg);
-      opacity: 0.5;
+    .hero .glow-blue {
+      width: 720px; height: 720px;
+      background: rgba(25,75,205,0.35);
+      top: -280px; left: 50%;
+      transform: translateX(-50%);
     }
-    .hero-block-2 {
-      position: absolute;
-      width: 200px; height: 200px;
-      background: var(--pink);
-      bottom: 40px; left: -40px;
-      border: var(--border);
-      transform: rotate(-8deg);
-      opacity: 0.45;
+    .hero .glow-lime {
+      width: 380px; height: 380px;
+      background: rgba(238,255,65,0.07);
+      bottom: -180px; right: -100px;
     }
 
     .hero-eyebrow {
-      display: inline-block;
-      background: var(--pink);
-      color: var(--white);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      padding: 6px 16px;
-      border: var(--border);
-      box-shadow: 3px 3px 0 var(--black);
-      margin-bottom: 24px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      color: var(--text-secondary);
+      padding: 7px 16px;
+      border: 1px solid var(--border-2);
+      border-radius: var(--radius-round);
+      background: rgba(255,255,255,0.04);
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow .dot {
+      width: 7px; height: 7px;
+      background: var(--lime);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--lime);
     }
 
     .hero-headline {
-      font-size: clamp(64px, 10vw, 128px);
-      font-weight: 700;
-      line-height: 0.9;
-      text-transform: uppercase;
+      font-size: clamp(48px, 8vw, 92px);
+      font-weight: 800;
+      line-height: 1.04;
       letter-spacing: -0.02em;
-      max-width: 900px;
+      max-width: 880px;
+      margin: 0 auto;
     }
-    .hero-headline .outline {
-      -webkit-text-stroke: 2px var(--white);
+    .hero-headline .grad {
+      background: linear-gradient(135deg, #3C6CE7 0%, #8FA8F5 50%, #EEFF41 110%);
+      -webkit-background-clip: text;
+      background-clip: text;
       color: transparent;
     }
-    .hero-headline .accent { color: var(--pink); }
 
     .hero-sub {
-      margin-top: 32px;
-      font-size: 22px;
-      font-weight: 300;
-      letter-spacing: 0.04em;
+      margin: 28px auto 0;
+      font-size: 19px;
+      font-weight: 400;
       max-width: 560px;
-      line-height: 1.5;
-      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+      color: var(--text-secondary);
     }
 
     .hero-actions {
-      margin-top: 48px;
+      margin-top: 44px;
       display: flex;
-      gap: 16px;
+      gap: 14px;
+      justify-content: center;
       flex-wrap: wrap;
       align-items: center;
     }
@@ -174,236 +174,199 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: var(--white);
-      color: var(--black);
-      font-family: 'Oswald', sans-serif;
+      background: var(--accent);
+      color: var(--white);
+      font-family: inherit;
       font-weight: 600;
-      font-size: 18px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 16px 36px;
-      border: var(--border);
-      box-shadow: var(--shadow-lg);
+      font-size: 16px;
+      padding: 15px 32px;
+      border: none;
+      border-radius: var(--radius-lg);
       text-decoration: none;
       cursor: pointer;
-      transition: transform 0.12s, box-shadow 0.12s;
-      transform: skewX(-4deg);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 0 0 rgba(60,108,231,0);
     }
     .btn-primary:hover {
-      transform: skewX(-4deg) translate(-3px, -3px);
-      box-shadow: 13px 13px 0 var(--black);
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px -8px rgba(60,108,231,0.5);
     }
-    .btn-primary:active { transform: skewX(-4deg) translate(3px, 3px); box-shadow: 3px 3px 0 var(--black); }
 
     .btn-secondary {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: transparent;
+      background: rgba(255,255,255,0.06);
       color: var(--white);
-      font-family: 'Oswald', sans-serif;
       font-weight: 500;
       font-size: 16px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 16px 0;
+      padding: 15px 32px;
+      border: 1px solid var(--border-2);
+      border-radius: var(--radius-lg);
       text-decoration: none;
-      border-bottom: 2px solid var(--white);
-      transition: color 0.12s, border-color 0.12s;
+      transition: background 0.2s, border-color 0.2s;
     }
-    .btn-secondary:hover { color: var(--pink); border-color: var(--pink); }
-
-    /* ── Marquee ────────────────────────────────────────── */
-    .marquee-wrap {
-      overflow: hidden;
-      border-top: var(--border);
-      border-bottom: var(--border);
-      background: var(--black);
-      padding: 16px 0;
-      position: relative;
-      z-index: 1;
-    }
-    .marquee-track {
-      display: flex;
-      gap: 0;
-      animation: marquee 20s linear infinite;
-      width: max-content;
-    }
-    .marquee-item {
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--white);
-      padding: 0 40px;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .marquee-item::after {
-      content: '✦';
-      color: var(--pink);
-    }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.3);
     }
 
-    /* ── Steps section ──────────────────────────────────── */
-    .steps-section {
-      padding: 120px 0;
+    /* ── Category pills strip ───────────────────────────── */
+    .pills-strip {
+      padding: 0 0 110px;
       position: relative;
     }
-
-    .section-header {
-      margin-bottom: 72px;
+    .pills-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 760px;
+      margin: 0 auto;
     }
-    .section-label {
+    .pill {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      padding: 9px 20px;
+      border: 1px solid var(--border-1);
+      border-radius: var(--radius-round);
+      background: var(--bg-secondary);
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .pill:hover {
+      border-color: var(--accent-hover);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* ── Sections ───────────────────────────────────────── */
+    .section {
+      padding: 110px 0;
+      position: relative;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-label {
+      display: inline-block;
       font-size: 13px;
       font-weight: 600;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 16px;
-    }
-    .section-label::before {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 2px;
-      background: var(--pink);
+      color: var(--accent-hover);
+      margin-bottom: 14px;
     }
     .section-title {
-      font-size: clamp(40px, 6vw, 72px);
-      font-weight: 700;
-      text-transform: uppercase;
-      line-height: 0.95;
-      letter-spacing: -0.01em;
+      font-size: clamp(34px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+    .section-sub {
+      margin: 18px auto 0;
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 520px;
+    }
+
+    /* ── Steps ──────────────────────────────────────────── */
+    .steps-section { position: relative; overflow: hidden; }
+    .steps-section .glow-mid {
+      width: 600px; height: 600px;
+      background: rgba(25,75,205,0.18);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
     }
 
     .steps-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
     }
 
     .step-card {
-      background: var(--white);
-      color: var(--black);
-      border: var(--border);
-      box-shadow: var(--shadow-lg);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-1);
+      border-radius: var(--radius-xl);
       padding: 36px 28px;
       position: relative;
-      transition: transform 0.15s, box-shadow 0.15s;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     }
     .step-card:hover {
-      transform: translate(-4px, -4px);
-      box-shadow: 14px 14px 0 var(--black);
+      border-color: rgba(60,108,231,0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 24px 48px -24px rgba(25,75,205,0.45);
     }
+    .step-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(60,108,231,0.6), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .step-card:hover::before { opacity: 1; }
 
     .step-number {
-      font-size: 72px;
-      font-weight: 700;
-      line-height: 1;
-      color: var(--green);
-      opacity: 0.12;
-      position: absolute;
-      top: 16px;
-      right: 20px;
-      letter-spacing: -0.04em;
-      pointer-events: none;
-      user-select: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--accent-hover);
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .step-number::after {
+      content: '';
+      height: 1px;
+      flex: 1;
+      background: var(--border-1);
     }
 
     .step-icon {
       width: 52px;
       height: 52px;
-      background: var(--green);
-      border: var(--border);
-      box-shadow: 4px 4px 0 var(--black);
+      background: rgba(60,108,231,0.12);
+      border: 1px solid rgba(60,108,231,0.3);
+      border-radius: var(--radius-lg);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 24px;
-      margin-bottom: 20px;
-      flex-shrink: 0;
-    }
-
-    .step-badge {
-      display: inline-block;
-      background: var(--pink);
-      color: var(--white);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border: 2px solid var(--black);
-      margin-bottom: 12px;
+      margin-bottom: 22px;
     }
 
     .step-heading {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      line-height: 1.1;
-      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+      margin-bottom: 10px;
     }
 
     .step-desc {
-      font-size: 15px;
-      font-weight: 300;
-      font-family: 'JetBrains Mono', monospace;
-      line-height: 1.6;
-      color: #374151;
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: var(--text-secondary);
     }
 
-    /* accent stripe on first card */
-    .step-card:nth-child(1) .step-icon { background: var(--blue); }
-    .step-card:nth-child(3) .step-icon { background: var(--pink); }
-
-    /* ── Connector line between steps ─────────────────── */
-    .steps-connector {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 0;
-      gap: 0;
-    }
-    .steps-connector-line {
-      height: 2px;
-      flex: 1;
-      background: repeating-linear-gradient(
-        90deg,
-        rgba(255,255,255,0.3) 0 8px,
-        transparent 8px 16px
-      );
-    }
-    .steps-connector-dot {
-      width: 12px;
-      height: 12px;
-      background: var(--pink);
-      border: 2px solid var(--black);
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    /* ── App store badges ───────────────────────────────── */
-    .download-section {
-      padding: 100px 0;
-      position: relative;
-    }
+    /* ── Download CTA ───────────────────────────────────── */
+    .download-section { position: relative; overflow: hidden; }
 
     .download-card {
-      background: var(--black);
-      border: var(--border);
-      box-shadow: var(--shadow-lg);
-      padding: 64px;
+      background: linear-gradient(135deg, #11235f 0%, #194BCD 55%, #3C6CE7 100%);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 1.5rem;
+      padding: 72px 64px;
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 48px;
@@ -414,35 +377,33 @@
     .download-card::before {
       content: '';
       position: absolute;
-      top: -40px; right: -40px;
-      width: 200px; height: 200px;
-      background: var(--blue);
-      border: var(--border);
-      transform: rotate(20deg);
-      opacity: 0.15;
+      width: 480px; height: 480px;
+      background: rgba(238,255,65,0.12);
+      border-radius: 50%;
+      filter: blur(100px);
+      top: -200px; right: -120px;
+      pointer-events: none;
     }
 
     .download-headline {
-      font-size: clamp(32px, 5vw, 60px);
-      font-weight: 700;
-      text-transform: uppercase;
-      line-height: 1;
-      letter-spacing: -0.01em;
+      font-size: clamp(32px, 4.5vw, 52px);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
     }
-    .download-headline span { color: var(--pink); }
+    .download-headline span { color: var(--lime); }
 
     .download-sub {
       margin-top: 16px;
       font-size: 16px;
-      font-weight: 300;
-      letter-spacing: 0.06em;
-      color: rgba(255,255,255,0.65);
+      color: rgba(255,255,255,0.75);
+      max-width: 440px;
     }
 
     .store-badges {
       margin-top: 36px;
       display: flex;
-      gap: 16px;
+      gap: 14px;
       flex-wrap: wrap;
     }
 
@@ -450,63 +411,63 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      background: var(--white);
-      color: var(--black);
-      padding: 14px 24px;
-      border: var(--border);
-      box-shadow: var(--shadow);
+      background: #070708;
+      color: var(--white);
+      padding: 13px 24px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-lg);
       text-decoration: none;
-      transition: transform 0.12s, box-shadow 0.12s;
+      transition: transform 0.2s, border-color 0.2s;
       min-width: 180px;
     }
     .store-badge:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: 9px 9px 0 var(--black);
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.4);
     }
     .store-badge svg { flex-shrink: 0; }
-    .store-badge-text { display: flex; flex-direction: column; gap: 2px; }
+    .store-badge-text { display: flex; flex-direction: column; gap: 1px; }
     .store-badge-sub {
       font-size: 10px;
       font-weight: 400;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: #6B7280;
+      color: rgba(255,255,255,0.55);
     }
     .store-badge-name {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      letter-spacing: -0.01em;
     }
 
     .download-qr-wrap {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
+      position: relative;
+      z-index: 1;
     }
     .download-qr {
-      width: 140px;
-      height: 140px;
+      width: 150px;
+      height: 150px;
       background: var(--white);
-      border: var(--border);
-      box-shadow: var(--shadow);
+      border-radius: var(--radius-xl);
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 24px 48px -16px rgba(0,0,0,0.4);
     }
     .qr-label {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.7);
     }
 
     /* ── Footer ─────────────────────────────────────────── */
     footer {
-      border-top: var(--border);
-      padding: 48px 0;
+      border-top: 1px solid var(--border-1);
+      padding: 44px 0;
       position: relative;
       z-index: 1;
     }
@@ -518,23 +479,20 @@
       flex-wrap: wrap;
     }
     .footer-brand {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
     }
-    .footer-brand span { color: var(--pink); }
+    .footer-brand span { color: var(--accent-hover); }
     .footer-copy {
       font-size: 13px;
-      font-weight: 300;
-      letter-spacing: 0.06em;
-      color: rgba(255,255,255,0.45);
+      color: var(--text-tertiary);
     }
 
     /* ── Scroll reveal ──────────────────────────────────── */
     [data-reveal] {
       opacity: 0;
-      transform: translateY(32px);
+      transform: translateY(28px);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
     [data-reveal].visible {
@@ -544,16 +502,16 @@
     [data-reveal="delay-1"] { transition-delay: 0.1s; }
     [data-reveal="delay-2"] { transition-delay: 0.2s; }
     [data-reveal="delay-3"] { transition-delay: 0.3s; }
-    [data-reveal="delay-4"] { transition-delay: 0.4s; }
 
     /* ── Responsive ─────────────────────────────────────── */
     @media (max-width: 768px) {
       .download-card {
         grid-template-columns: 1fr;
-        padding: 40px 28px;
+        padding: 48px 28px;
       }
       .download-qr-wrap { display: none; }
-      .hero-block-1, .hero-block-2 { display: none; }
+      .hero { padding-top: 132px; padding-bottom: 80px; }
+      .section { padding: 80px 0; }
     }
   </style>
 </head>
@@ -569,86 +527,77 @@
 
   <!-- ── Hero ───────────────────────────────── -->
   <section class="hero">
-    <div class="hero-block-1"></div>
-    <div class="hero-block-2"></div>
+    <div class="glow glow-blue"></div>
+    <div class="glow glow-lime"></div>
     <div class="container">
-      <div class="hero-eyebrow">✦ Now live for your team</div>
+      <div class="hero-eyebrow"><span class="dot"></span> Now live for your team</div>
       <h1 class="hero-headline">
-        Flexi<span class="outline">Benefits</span><br />
-        <span class="accent">Your Way.</span>
+        FlexiBenefits,<br /><span class="grad">your way.</span>
       </h1>
       <p class="hero-sub">
         Spend your benefits on what matters to you — food, fitness, fuel, and more. Download the SalarySe app and you're in.
       </p>
       <div class="hero-actions">
-        <a href="#steps" class="btn-primary">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-          How It Works
+        <a href="#download" class="btn-primary">
+          Download the App
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a href="#download" class="btn-secondary">
-          Download Now →
-        </a>
+        <a href="#steps" class="btn-secondary">How it works</a>
       </div>
     </div>
   </section>
 
-  <!-- ── Marquee ─────────────────────────────── -->
-  <div class="marquee-wrap">
-    <div class="marquee-track">
-      <span class="marquee-item">Food &amp; Dining</span>
-      <span class="marquee-item">Fuel &amp; Transport</span>
-      <span class="marquee-item">Health &amp; Fitness</span>
-      <span class="marquee-item">Gifts &amp; Vouchers</span>
-      <span class="marquee-item">Telecom</span>
-      <span class="marquee-item">Books &amp; Learning</span>
-      <span class="marquee-item">Food &amp; Dining</span>
-      <span class="marquee-item">Fuel &amp; Transport</span>
-      <span class="marquee-item">Health &amp; Fitness</span>
-      <span class="marquee-item">Gifts &amp; Vouchers</span>
-      <span class="marquee-item">Telecom</span>
-      <span class="marquee-item">Books &amp; Learning</span>
+  <!-- ── Category pills ──────────────────────── -->
+  <div class="pills-strip">
+    <div class="container">
+      <div class="pills-row" data-reveal>
+        <span class="pill">🍔 Food &amp; Dining</span>
+        <span class="pill">⛽ Fuel &amp; Transport</span>
+        <span class="pill">💪 Health &amp; Fitness</span>
+        <span class="pill">🎁 Gifts &amp; Vouchers</span>
+        <span class="pill">📱 Telecom</span>
+        <span class="pill">📚 Books &amp; Learning</span>
+      </div>
     </div>
   </div>
 
   <!-- ── Steps ──────────────────────────────── -->
-  <section class="steps-section" id="steps">
+  <section class="section steps-section" id="steps">
+    <div class="glow glow-mid"></div>
     <div class="container">
       <div class="section-header" data-reveal>
         <div class="section-label">Simple Setup</div>
-        <h2 class="section-title">Get Started<br />in 4 Steps</h2>
+        <h2 class="section-title">Get started in 4 steps</h2>
+        <p class="section-sub">From inbox to first purchase in under five minutes.</p>
       </div>
 
       <div class="steps-grid">
 
         <div class="step-card" data-reveal>
-          <span class="step-number">01</span>
+          <div class="step-number">STEP 01</div>
           <div class="step-icon">📩</div>
-          <div class="step-badge">Step 01</div>
-          <div class="step-heading">Check Your Inbox</div>
+          <div class="step-heading">Check your inbox</div>
           <p class="step-desc">Your employer sends you an activation link or invite code. Look for an email from SalarySe — it's your entry pass.</p>
         </div>
 
         <div class="step-card" data-reveal="delay-1">
-          <span class="step-number">02</span>
+          <div class="step-number">STEP 02</div>
           <div class="step-icon">📲</div>
-          <div class="step-badge">Step 02</div>
           <div class="step-heading">Download SalarySe</div>
           <p class="step-desc">Grab the app from the App Store or Google Play. It's free, lightweight, and takes under a minute to install.</p>
         </div>
 
         <div class="step-card" data-reveal="delay-2">
-          <span class="step-number">03</span>
+          <div class="step-number">STEP 03</div>
           <div class="step-icon">🔑</div>
-          <div class="step-badge">Step 03</div>
-          <div class="step-heading">Sign In &amp; Verify</div>
+          <div class="step-heading">Sign in &amp; verify</div>
           <p class="step-desc">Log in with your work email or mobile number. Verify with OTP — your FlexiBenefits wallet activates instantly.</p>
         </div>
 
         <div class="step-card" data-reveal="delay-3">
-          <span class="step-number">04</span>
+          <div class="step-number">STEP 04</div>
           <div class="step-icon">🎉</div>
-          <div class="step-badge">Step 04</div>
-          <div class="step-heading">Start Spending</div>
+          <div class="step-heading">Start spending</div>
           <p class="step-desc">Choose your benefit categories, load your wallet, and spend tax-free at thousands of partner brands.</p>
         </div>
 
@@ -657,19 +606,18 @@
   </section>
 
   <!-- ── Download CTA ────────────────────────── -->
-  <section class="download-section" id="download">
+  <section class="section download-section" id="download">
     <div class="container">
       <div class="download-card" data-reveal>
         <div>
-          <div class="section-label">Available Now</div>
           <h2 class="download-headline">
-            Download<br />the App<br /><span>Today.</span>
+            Download the app <span>today.</span>
           </h2>
           <p class="download-sub">iOS &amp; Android. Free forever for employees.</p>
 
           <div class="store-badges">
             <a href="#" class="store-badge">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
               <div class="store-badge-text">
                 <span class="store-badge-sub">Download on the</span>
                 <span class="store-badge-name">App Store</span>
@@ -677,7 +625,7 @@
             </a>
 
             <a href="#" class="store-badge">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.65.19.98.08l12.08-6.98-2.54-2.54-10.52 9.44zm-1.12-20.8C2.02 3.23 2 3.53 2 3.85v16.3c0 .32.02.62.06.9l10.59-10.6-10.59-10.49zM20.11 10.25l-2.7-1.56-2.84 2.84 2.84 2.84 2.73-1.58c.78-.45.78-1.54-.03-2.54zM4.16.24L16.24 7.22l-2.54 2.54L3.18.32C3.51.21 3.86.23 4.16.24z"/></svg>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.65.19.98.08l12.08-6.98-2.54-2.54-10.52 9.44zm-1.12-20.8C2.02 3.23 2 3.53 2 3.85v16.3c0 .32.02.62.06.9l10.59-10.6-10.59-10.49zM20.11 10.25l-2.7-1.56-2.84 2.84 2.84 2.84 2.73-1.58c.78-.45.78-1.54-.03-2.54zM4.16.24L16.24 7.22l-2.54 2.54L3.18.32C3.51.21 3.86.23 4.16.24z"/></svg>
               <div class="store-badge-text">
                 <span class="store-badge-sub">Get it on</span>
                 <span class="store-badge-name">Google Play</span>
@@ -689,23 +637,23 @@
         <div class="download-qr-wrap">
           <div class="download-qr">
             <!-- QR placeholder grid -->
-            <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="5" y="5" width="38" height="38" rx="2" stroke="#0A0A0A" stroke-width="4" fill="none"/>
-              <rect x="15" y="15" width="18" height="18" fill="#0A0A0A"/>
-              <rect x="57" y="5" width="38" height="38" rx="2" stroke="#0A0A0A" stroke-width="4" fill="none"/>
-              <rect x="67" y="15" width="18" height="18" fill="#0A0A0A"/>
-              <rect x="5" y="57" width="38" height="38" rx="2" stroke="#0A0A0A" stroke-width="4" fill="none"/>
-              <rect x="15" y="67" width="18" height="18" fill="#0A0A0A"/>
-              <rect x="57" y="57" width="8" height="8" fill="#0A0A0A"/>
-              <rect x="69" y="57" width="8" height="8" fill="#0A0A0A"/>
-              <rect x="81" y="57" width="14" height="8" fill="#0A0A0A"/>
-              <rect x="57" y="69" width="14" height="8" fill="#0A0A0A"/>
-              <rect x="75" y="69" width="8" height="8" fill="#0A0A0A"/>
-              <rect x="57" y="81" width="8" height="8" fill="#0A0A0A"/>
-              <rect x="69" y="81" width="18" height="8" fill="#0A0A0A"/>
+            <svg width="104" height="104" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="5" y="5" width="38" height="38" rx="6" stroke="#070708" stroke-width="4" fill="none"/>
+              <rect x="15" y="15" width="18" height="18" rx="3" fill="#070708"/>
+              <rect x="57" y="5" width="38" height="38" rx="6" stroke="#070708" stroke-width="4" fill="none"/>
+              <rect x="67" y="15" width="18" height="18" rx="3" fill="#070708"/>
+              <rect x="5" y="57" width="38" height="38" rx="6" stroke="#070708" stroke-width="4" fill="none"/>
+              <rect x="15" y="67" width="18" height="18" rx="3" fill="#070708"/>
+              <rect x="57" y="57" width="8" height="8" rx="2" fill="#070708"/>
+              <rect x="69" y="57" width="8" height="8" rx="2" fill="#070708"/>
+              <rect x="81" y="57" width="14" height="8" rx="2" fill="#070708"/>
+              <rect x="57" y="69" width="14" height="8" rx="2" fill="#070708"/>
+              <rect x="75" y="69" width="8" height="8" rx="2" fill="#070708"/>
+              <rect x="57" y="81" width="8" height="8" rx="2" fill="#070708"/>
+              <rect x="69" y="81" width="18" height="8" rx="2" fill="#070708"/>
             </svg>
           </div>
-          <span class="qr-label">Scan to Download</span>
+          <span class="qr-label">Scan to download</span>
         </div>
       </div>
     </div>
